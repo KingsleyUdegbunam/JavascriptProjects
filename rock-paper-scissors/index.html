@@ -22,8 +22,25 @@
     Scissors
   </button>
 
+  <button onclick="
+  score.wins = 0;
+  score.losses = 0;
+  score.ties = 0;
+  localStorage.removeItem('score');
+
+  ">Reset</button>
+
 
   <script>
+
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    };
+
+    console.log(score);
+
     function pickComputerMove() {
       const generateRandom = Math.random();
       let computerMove = '';
@@ -82,7 +99,22 @@
         }
       }
 
-      alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}`);
+      if (result === 'You won') {
+        score.wins++
+
+      } else if (result === 'You lost') {
+        score.losses++
+
+      } else if (result === 'Tie') {
+        score.ties++
+      }
+
+      // save score to localStorage for better saving
+      localStorage.setItem('score', JSON.stringify(score));
+
+
+
+      alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}\nWins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}.`);
     }
   </script>
 
