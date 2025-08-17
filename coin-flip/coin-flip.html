@@ -8,27 +8,69 @@
 </head>
 
 <body>
+  <h1>Coin Flip</h1>
+
+  <button onclick="playGame('heads')">Heads</button>
+
+  <button onclick="playGame('tails')">Tails</button>
+
+  <button onclick="
+  scoreboard.wins = 0;
+  scoreboard.losses = 0;
+
+  localStorage.removeItem('score');
+  ">Reset</button>
 
 
   <script>
-    let coinToss = Math.random();
-
-    let result = '';
-
-    if (coinToss <= 0.5) {
-      result = 'heads';
-    } else {
-      result = 'tails';
+    let scoreboard = JSON.parse(localStorage.getItem('score')) || {
+      wins: 0,
+      losses: 0
     }
 
-    let yourGuess = 'heads';
-    if (result === yourGuess) {
-      console.log('Your win!')
-    } else {
-      console.log('You lose!');
+
+    function setTarget() {
+      let coinToss = Math.random();
+      let tossedCoin = '';
+
+      if (coinToss <= 0.5) {
+        tossedCoin = 'heads';
+      } else {
+        tossedCoin = 'tails';
+      }
+
+      return tossedCoin;
     }
 
-    console.log(result)
+    function playGame(select) {
+      let tossedCoin = setTarget();
+      let result = '';
+
+      if (select === 'heads') {
+        if (select === tossedCoin) {
+          result = 'You won';
+        } else if (select !== tossedCoin) {
+          result = 'You lost';
+        }
+
+      } else if (select === 'tails') {
+        if (select === tossedCoin) {
+          result = 'You won';
+        } else if (select !== tossedCoin) {
+          result = 'You lost';
+        }
+      }
+      if (result === 'You won') {
+        scoreboard.wins++
+      } else if (result === 'You lost') {
+        scoreboard.losses++;
+      }
+
+      localStorage.setItem('score', JSON.stringify(scoreboard))
+
+
+      console.log(`${result}.\nWins: ${scoreboard.wins}. Losses: ${scoreboard.losses}.`)
+    }
 
   </script>
 
