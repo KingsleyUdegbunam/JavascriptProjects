@@ -101,6 +101,9 @@
 
     <button onclick="
     calculation = '';
+    
+    localStorage.removeItem('calculated');
+
     console.log('Cleared!');
     console.log(calculation);
     ">Clear</button>
@@ -109,10 +112,13 @@
 
 
   <script>
-    let calculation = '';
+    let calculation = JSON.parse(localStorage.getItem('calculated')) || '';
+
     function updateCalculation(digit) {
       calculation += digit;
       console.log(calculation);
+
+      localStorage.setItem('calculated', JSON.stringify(calculation));
     }
   </script>
 </body>
