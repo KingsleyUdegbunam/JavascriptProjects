@@ -8,7 +8,9 @@
 </head>
 
 <body>
-  <p>Calculator</p>
+  <h3>CALCULATOR</h3>
+  <p class="js-calculation-display"> </p>
+
   <p>
     <button onclick="
   updateCalculation(1);
@@ -25,7 +27,8 @@
 
     <button onclick="
   calculation += ' + ';
-  console.log(calculation);">+</button>
+   calculatorScreenElem.innerHTML = calculation;
+   ">+</button>
   </p>
 
   <p>
@@ -43,7 +46,7 @@
 
     <button onclick="
     calculation = calculation + ' - ';
-    console.log(calculation);
+     calculatorScreenElem.innerHTML = calculation;
     ">-</button>
   </p>
 
@@ -62,7 +65,8 @@
 
     <button onclick="
     calculation = calculation + ' * ';
-    console.log(calculation);
+     calculatorScreenElem.innerHTML = calculation;
+     calculatorScreenElem.innerHTML = calculation;
     ">*</button>
   </p>
 
@@ -73,49 +77,53 @@
 
     <button onclick="
     calculation = calculation + '.';
-    console.log(calculation);
+     calculatorScreenElem.innerHTML = calculation;
+     calculatorScreenElem.innerHTML = calculation;
     ">.</button>
 
     <button onclick="
     calculation = eval(calculation);
-    console.log(calculation);
-    calculation = '';
+     calculatorScreenElem.innerHTML = calculation;
+     calculatorScreenElem.innerHTML = calculation;
     ">=</button>
 
     <button onclick="
     calculation = calculation + ' / ';
-    console.log(calculation);
+     calculatorScreenElem.innerHTML = calculation;
     ">/</button>
   </p>
 
   <p>
     <button onclick="
       calculation = calculation + '(';
-      console.log(calculation);
+
       ">(</button>
 
     <button onclick="
     calculation = calculation + ')';
-    console.log(calculation);
     ">)</button>
 
     <button onclick="
-    calculation = '';
+    calculation = ' ';
     
     localStorage.removeItem('calculated');
+     calculatorScreenElem.innerHTML = calculation;
 
     console.log('Cleared!');
-    console.log(calculation);
     ">Clear</button>
   </p>
 
 
 
   <script>
+    const calculatorScreenElem = document.querySelector('.js-calculation-display');
+
     let calculation = JSON.parse(localStorage.getItem('calculated')) || '';
 
     function updateCalculation(digit) {
+
       calculation += digit;
+      calculatorScreenElem.innerHTML = calculation;
       console.log(calculation);
 
       localStorage.setItem('calculated', JSON.stringify(calculation));
