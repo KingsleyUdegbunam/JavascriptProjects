@@ -22,13 +22,20 @@
     Scissors
   </button>
 
-  <button onclick="
-  score.wins = 0;
-  score.losses = 0;
-  score.ties = 0;
-  localStorage.removeItem('score');
+  <p class="js-result"></p>
+  <p class="js-move-record"></p>
+  <p class="js-score"></p>
 
-  ">Reset</button>
+  <button onclick="
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+    localStorage.removeItem('score');
+
+    updateScore();
+  ">
+    Reset Score
+  </button>
 
 
   <script>
@@ -39,7 +46,13 @@
       ties: 0
     };
 
-    // console.log(score);
+    updateScore();
+
+    function updateScore() {
+      const scoreElement = document.querySelector('.js-score');
+      scoreElement.innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+    }
+
 
     function pickComputerMove() {
       const generateRandom = Math.random();
@@ -112,9 +125,11 @@
       // save score to localStorage for better saving
       localStorage.setItem('score', JSON.stringify(score));
 
+      //manipulating the created p element in the body element to display gameplay
+      document.querySelector('.js-result').innerHTML = result;
+      document.querySelector('.js-move-record').innerHTML = `You: ${playerMove} &ndash; Computer: ${computerMove}`;
+      updateScore();
 
-
-      alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}\nWins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}.`);
     }
   </script>
 
