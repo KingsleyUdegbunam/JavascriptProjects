@@ -8,91 +8,103 @@
 </head>
 
 <body>
-  <p>Cart Quantity</p>
+  <h3>Cart Quantity</h3>
 
-  <button onclick="
-  console.log(`Cart quantity: ${cartQuantity}`);
+  <button onclick="cart
+  displayCartQuantityElem.innerHTML = `Cart quantity: ${cart.quantity}`;
   ">
     Show Quantity
   </button>
 
-  <button onclick="
-  cartQuantity -= 3;
-  console.log(`Cart quantity: ${cartQuantity}`);
-  ">
+  <button onclick="updateCart(-3)">
     -3
   </button>
 
-  <button onclick="
-  cartQuantity -= 2;
-  console.log(`Cart quantity: ${cartQuantity}`)
-  ">
+
+  <button onclick="updateCart(-2)">
     -2
   </button>
 
-
-
-  <button onclick="
-  cartQuantity--;
-  console.log(`Cart quantity: ${cartQuantity}`)
-  ">
+  <button onclick="updateCart(-1)">
     Remove from cart
   </button>
 
-  <button onclick="
-  // cartQuantity = cartQuantity + 1;
-  cartQuantity++;
-  console.log(`Cart quantity: ${cartQuantity}`);
-  ">
+  <button onclick="updateCart(1)">
     Add to Cart
   </button>
 
-  <button onclick="
-  // cartQuantity = cartQuantity + 2;
-  cartQuantity += 2;
-  console.log(`Cart quantity: ${cartQuantity}`);
-  ">
+  <button onclick="updateCart(2)">
     +2
   </button>
 
-  <button onclick="
-  // cartQuantity = cartQuantity + 3;
-  cartQuantity += 3;
-  console.log(`Cart quantity: ${cartQuantity}`)
-  ">
+  <button onclick="updateCart(3)">
     +3
   </button>
 
-  <button onclick="
-  
-  cartQuantity += 4;
-  console.log(`Cart quantity: ${cartQuantity}`)
-  ">
+  <button onclick="updateCart(4)">
     +4
   </button>
 
-  <button onclick="
-  
-  cartQuantity += 5;
-  console.log(`Cart quantity: ${cartQuantity}`)
-  ">
+  <button onclick="updateCart(5)">
     +5
   </button>
 
   <button onclick="
-  cartQuantity = 0;
-  console.log(`Cart was reset.`)
-  console.log(`Cart quantity: ${cartQuantity}`)
+  cart.quantity = 0;
+  console.log(`Cart was reset.`);
+  localStorage.removeItem('cart');
+  updateCart(0);
   ">
     Reset Cart
   </button>
 
-  <script>
-    let cartQuantity = 0;
+  <p class="js-cart-quantity-display"></p>
+  <p class="js-warning-display"></p>
 
+  <script>
+    // max of 10 quantity
+    let cart = JSON.parse(localStorage.getItem('cart')) || {
+      quantity: 0
+    };
+    //let cartQuantity = cart.quantity;
+
+    function updateCart(value) {
+
+      let limitSign = '';
+      if (value > 0) {
+        if (cart.quantity === 10) {
+          limitSign = 'WARNING!: The cart is full.';
+          return
+        }
+        if ((cart.quantity + value) > 10) {
+          limitSign = 'WARNING!: Item number is bigger than cart limit.';
+        } else {
+          cart.quantity += value;
+          console.log(`Cart quantity: ${cart.quantity}`);
+        }
+
+      } else if (value < 0) {
+        if (cart.quantity === 0) {
+          //limitSign = ('WARNING!: The cart is empty.')
+        } else {
+          if ((cart.quantity + value) < 0) {
+            limitSign = 'WARNING!: Cart item(s) can\'t be below 0.'
+          } else {
+            cart.quantity += value;
+            console.log(`Cart quantity: ${cart.quantity}`)
+          }
+        }
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      displayCartQuantityElem.innerHTML = `Cart quantity: ${cart.quantity}`;
+      displayWarningElem.innerHTML = `${limitSign}`;
+    }
+
+    const displayCartQuantityElem = document.querySelector('.js-cart-quantity-display');
+    const displayWarningElem = document.querySelector('.js-warning-display');
 
   </script>
-
 </body>
 
 </html>
