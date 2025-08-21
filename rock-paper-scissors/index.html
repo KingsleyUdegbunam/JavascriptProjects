@@ -5,28 +5,148 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock, paper, and Scissors</title>
+
+  <style>
+    h1,
+    h2,
+    h3,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+
+
+    .title-text {
+      padding-block: 2rem;
+      font-size: 2rem;
+      font-weight: bolder;
+    }
+
+    body {
+      background-color: #191919;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 0;
+      margin: 0;
+    }
+
+    section,
+    main,
+    div {
+      margin: 0;
+      padding: 0;
+    }
+
+    main {
+      height: 100vh;
+      background-color: green;
+
+    }
+
+    section {
+      height: 100%;
+      /* min-height: fit-content; */
+      background-color: gray;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      /* padding-top: 3rem; */
+
+
+
+    }
+
+    div {
+      display: flex;
+
+      /* background-color: red; */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reset-btn {
+      background-color: white;
+      padding: 8px 20px;
+      border: none;
+
+    }
+
+    .move-div {
+      display: flex;
+      flex-direction: row;
+      flex-direction: auto;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .move-icon {
+      max-height: 5em;
+      max-width: 5em;
+    }
+
+
+
+    .move-btn {
+
+      border: 3px solid white;
+      padding: 1rem;
+      background-color: transparent;
+      border-radius: 50%;
+    }
+
+
+
+    .display-result {
+      font-weight: bolder;
+      font-size: 1.2rem;
+      padding-block: 2rem;
+    }
+
+    .move-record {
+      margin-bottom: 3rem;
+    }
+
+    .scoreboard {
+      padding-bottom: 2rem;
+    }
+  </style>
 </head>
 
+
 <body>
-  <h1>Rock, Paper, and Scissors</h1>
-  <button onclick="playGame('rock')">
-    Rock
-  </button>
+  <main>
+    <section>
+      <h1 class="title-text">Rock, Paper, and Scissors</h1>
+      <div class="move-div">
+        <button class="move-btn" onclick="playGame('rock')">
+          <img class="move-icon" width="250" height="250" src="/icons/rock.png" alt="">
+
+        </button>
 
 
-  <button onclick="playGame('paper');">
-    Paper
-  </button>
+        <button class="move-btn" onclick="playGame('paper');">
+          <img class="move-icon" width="250" height="250" src="/icons/paper.png" alt="">
 
-  <button onclick="playGame('scissors');">
-    Scissors
-  </button>
+        </button>
 
-  <p class="js-result"></p>
-  <p class="js-move-record"></p>
-  <p class="js-score"></p>
+        <button class="move-btn" onclick="playGame('scissors');">
+          <img class="move-icon" width="250" height="250" src="/icons/scissors.png" alt="">
 
-  <button onclick="
+        </button>
+      </div>
+
+      <p class="js-result display-result">Tie</p>
+      <p class="js-move-record move-record">You <img class="move-icon" src="/icons/rock.png" alt=""> <img
+          class="move-icon" src="/icons/paper.png"> Computer
+      </p>
+
+
+      <p class="js-score scoreboard"></p>
+
+      <button class="reset-btn" onclick="
     score.wins = 0;
     score.losses = 0;
     score.ties = 0;
@@ -34,8 +154,11 @@
 
     updateScore();
   ">
-    Reset Score
-  </button>
+        Reset Score
+      </button>
+    </section>
+  </main>
+
 
 
   <script>
@@ -73,7 +196,10 @@
 
 
     function playGame(playerMove) {
+
+
       const computerMove = pickComputerMove();
+      /* const tie = */
 
       let result = '';
 
@@ -112,22 +238,13 @@
         }
       }
 
-      if (result === 'You won') {
-        score.wins++
-
-      } else if (result === 'You lost') {
-        score.losses++
-
-      } else if (result === 'Tie') {
-        score.ties++
-      }
 
       // save score to localStorage for better saving
       localStorage.setItem('score', JSON.stringify(score));
 
       //manipulating the created p element in the body element to display gameplay
       document.querySelector('.js-result').innerHTML = result;
-      document.querySelector('.js-move-record').innerHTML = `You: ${playerMove} &ndash; Computer: ${computerMove}`;
+      document.querySelector('.js-move-record').innerHTML = `You ${playerMove} &ndash; ${computerMove} Computer`;
       updateScore();
 
     }
