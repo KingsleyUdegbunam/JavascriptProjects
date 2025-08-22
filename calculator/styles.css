@@ -1,0 +1,103 @@
+body {
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h3 {
+  color: rgb(205, 204, 204);
+  font-size: 1.1rem;
+}
+
+.calculator-screen {
+  color: white;
+  font-weight: bold;
+  text-wrap: wrap;
+  font-size: 0.7rem;
+
+  padding: 0;
+  margin: 0;
+}
+
+.blend {
+  /* position: relative; */
+  align-self: center;
+  display: flex;
+  min-height: 2rem;
+  width: 10rem;
+  align-items: center;
+  padding-inline: 0.7rem;
+
+  /* flex-wrap: wrap; */
+  overflow: hidden;
+  background-image: url("image/disppp.png");
+  background-size: cover;
+  border-radius: 1rem;
+}
+
+/* img {
+  width: fit-content;
+  height: fit-content;
+  height: 45px;
+  width: 110%;
+  z-index: -1;
+  left: -0.5rem;
+  top: -0.6rem;
+  position: absolute;
+} */
+
+button {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: white;
+  background-color: #343434;
+  border: none;
+  border-radius: 50%;
+}
+
+button:hover,
+button:focus {
+  background-color: #505050;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.operator {
+  background-color: orange;
+}
+
+.operator:hover,
+.operator:focus {
+  background-color: rgba(255, 166, 0, 0.862);
+}
+
+.evaluate {
+  background-color: rgb(54, 162, 54);
+}
+
+.evaluate:hover,
+.evaluate:focus {
+  background-color: rgba(54, 162, 54, 0.807);
+}
+
+.clear {
+  width: 5rem;
+  height: 2.2rem;
+  border-radius: 0;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: #505050;
+}
+
+.clear:hover,
+.clear:focus {
+  background-color: rgba(255, 255, 255, 0.849);
+  color: #313131;
+}
